@@ -1,0 +1,6 @@
+addon: "Pylon Delight"
+
+items:
+  wok:
+    name: "Wok"
+    lore: |-

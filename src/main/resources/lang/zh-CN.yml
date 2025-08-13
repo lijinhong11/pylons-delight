@@ -1,0 +1,6 @@
+addon: "Pylon乐事"
+
+items:
+  wok:
+    name: "炒锅"
+    lore: |-
