@@ -1,6 +1,11 @@
 package io.github.lijinhong11.pylonersdelight;
 
+import io.github.lijinhong11.pylonersdelight.items.DelightItems;
+import io.github.lijinhong11.pylonersdelight.util.DelightKeys;
+import io.github.lijinhong11.pylonersdelight.util.DelightPages;
 import io.github.pylonmc.pylon.core.addon.PylonAddon;
+import io.github.pylonmc.pylon.core.guide.pages.base.SimpleDynamicGuidePage;
+import io.github.pylonmc.pylon.core.guide.pages.base.SimpleStaticGuidePage;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
 import org.bukkit.Material;
@@ -18,6 +23,9 @@ public class Delight extends JavaPlugin implements PylonAddon {
         INSTANCE = this;
 
         registerWithPylon();
+
+        DelightPages.setup();
+        DelightItems.setup();
     }
 
     @Override

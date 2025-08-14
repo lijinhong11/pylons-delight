@@ -4,3 +4,5 @@ items:
   wok:
     name: "炒锅"
     lore: |-
+  plate:
+    name: "盘子"

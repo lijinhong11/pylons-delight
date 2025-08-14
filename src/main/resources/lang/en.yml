@@ -4,3 +4,5 @@ items:
   wok:
     name: "Wok"
     lore: |-
+  plate:
+    name: "Plate"
