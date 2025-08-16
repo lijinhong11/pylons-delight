@@ -1,4 +1,4 @@
-package io.github.lijinhong11.pylonersdelight.chunk;
+package io.github.lijinhong11.pylonsdelight.chunk;
 
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;

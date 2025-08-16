@@ -1,1 +1,1 @@
-rootProject.name = "pyloners-delight"
+rootProject.name = "pylons-delight"

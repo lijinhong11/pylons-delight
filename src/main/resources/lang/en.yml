@@ -1,8 +1,19 @@
-addon: "Pylon Delight"
+addon: "Pylon's Delight"
 
-items:
+guide:
+  page:
+    page: "<green>Pylon's Delight"
+    cookers: "<yellow>Cookers"
+    food: "<gold>Food"
+    plants: "<green>Plants"
+
+item:
   wok:
-    name: "Wok"
+    name: "<gray>Wok"
     lore: |-
+      <green>Have fun with cooking!
   plate:
-    name: "Plate"
+    name: "<reset>Plate"
+
+waila:
+  plant: "%name% <white>Plant | Current: <green>%percent%%"
