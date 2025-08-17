@@ -11,6 +11,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Consumer;
 
+/**
+ * The plant stage definition
+ * @param percent the percent of the plant grows
+ * @param itemStack the output item stack
+ * @param edits the edit to the block
+ */
 public record PlantStage(float percent, ItemStack itemStack, Consumer<Block> edits) {
     public PlantStage(float percent, ItemStack itemStack, Consumer<Block> edits) {
         this.percent = percent;
@@ -31,8 +37,9 @@ public record PlantStage(float percent, ItemStack itemStack, Consumer<Block> edi
             b.setType(Material.PLAYER_HEAD);
             Skull sk = (Skull) b.getState();
             PlayerProfile profile = Bukkit.createProfile(Constants.HEAD);
-            profile.setProperty(new ProfileProperty("texture", headBase64));
+            profile.setProperty(new ProfileProperty("textures", headBase64));
             sk.setPlayerProfile(profile);
+            sk.update(true);
         });
     }
 }

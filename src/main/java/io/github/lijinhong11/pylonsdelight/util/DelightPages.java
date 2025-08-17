@@ -16,10 +16,12 @@ public class DelightPages {
     public static void setup() {
         MAIN = new SimpleStaticGuidePage(DelightKeys.PAGE, Delight.INSTANCE.getMaterial());
         COOKERS = new SimpleStaticGuidePage(DelightKeys.PAGE_COOKERS, Material.STICK);
-        FOOD = new SimpleStaticGuidePage(DelightKeys.PAGE_FOOD, Material.PORKCHOP);
+        FOOD = new SimpleStaticGuidePage(DelightKeys.PAGE_FOOD, Material.COOKED_PORKCHOP);
         PLANTS = new SimpleStaticGuidePage(DelightKeys.PAGE_PLANTS, Material.OAK_SAPLING);
 
         MAIN.addPage(COOKERS);
+        MAIN.addPage(FOOD);
+        MAIN.addPage(PLANTS);
 
         PylonGuide.getRootPage().addPage(MAIN);
     }

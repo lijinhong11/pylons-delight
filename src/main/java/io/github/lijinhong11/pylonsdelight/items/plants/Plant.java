@@ -14,6 +14,9 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Rotatable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -29,11 +32,14 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
     protected int ticks = 0;
     protected PlantStage currentStage;
 
-    private int finalStageTicks;
+    private BlockFace rotate = BlockFace.NORTH;
 
     public Plant(@NotNull Block block, @NotNull BlockCreateContext context) {
         super(block, context);
 
+        if (context instanceof BlockCreateContext.PlayerPlace p) {
+            rotate = p.getPlayer().getFacing().getOppositeFace();
+        }
         setup();
     }
 
@@ -41,15 +47,21 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
         super(block, pdc);
 
         ticks = pdc.getOrDefault(DelightDataKeys.TICKS, PersistentDataType.INTEGER, 0);
+        rotate = BlockFace.values()[pdc.getOrDefault(DelightDataKeys.DIRECTION, PersistentDataType.INTEGER, 0)];
         setup();
     }
 
     @Override
     public void tick(double deltaSeconds) {
-        if (ticks < finalStageTicks) {
+        if (currentStage != stages.values().toArray()[0]) {
             PlantStage stage = stages.get(ticks);
             if (stage != null) {
                 stage.edits().accept(getBlock());
+                BlockData data = getBlock().getBlockData();
+                if (data instanceof Rotatable r) {
+                    r.setRotation(rotate);
+                }
+                currentStage = stage;
             }
             ticks++;
         }
@@ -62,13 +74,18 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
             return;
         }
 
+        if (currentStage == null) {
+            return;
+        }
+
         Block block = e.getClickedBlock();
         World world = block.getWorld();
         if (action.isRightClick()) {
-            if (currentStage != stages.values().toArray()[0]) {
-                world.dropItem(block.getLocation(), currentStage.itemStack());
+            if (currentStage.itemStack() != null) {
+                world.dropItem(block.getLocation(), currentStage.itemStack().asQuantity(getOutputCount(currentStage)));
 
                 this.ticks = 0;
+                this.currentStage = null;
                 block.setType(Material.OAK_SAPLING);
             }
         }
@@ -76,14 +93,21 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
 
     @Override
     public @NotNull WailaConfig getWaila(@NotNull Player player) {
+        float percent = 0f;
+
+        if (currentStage != null) {
+            percent = currentStage.percent();
+        }
+
         PylonArgument name = PylonArgument.of("name", getItemName());
-        PylonArgument percent = PylonArgument.of("percent", currentStage.percent());
-        return new WailaConfig(Component.text("waila.plant"), List.of(name, percent), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS, currentStage.percent() / 100f);
+        PylonArgument percentArg = PylonArgument.of("percent", percent);
+        return new WailaConfig(Component.text("pylon.pylons-delight.waila.plant"), List.of(name, percentArg), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS, percent / 100f);
     }
 
     @Override
     public void write(@NotNull PersistentDataContainer pdc) {
         pdc.set(DelightDataKeys.TICKS, PersistentDataType.INTEGER, ticks);
+        pdc.set(DelightDataKeys.DIRECTION, PersistentDataType.INTEGER, rotate.ordinal());
     }
 
     private void setup() {
@@ -91,19 +115,16 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
 
         addStages();
 
-        Integer[] stagesArr = stages.keySet().toArray(new Integer[0]);
-        finalStageTicks = stagesArr[stagesArr.length - 1];
-
         currentStage = stages.get(stages.floorKey(ticks));
-        if (currentStage == null) {
-            currentStage = stages.values().toArray(PlantStage[]::new)[0];
+        if (currentStage != null) {
+            currentStage.edits().accept(getBlock());
         }
-
-        currentStage.edits().accept(getBlock());
     }
 
     //abstract methods
     protected abstract void addStages();
 
     protected abstract Component getItemName();
+
+    protected abstract int getOutputCount(PlantStage stage);
 }

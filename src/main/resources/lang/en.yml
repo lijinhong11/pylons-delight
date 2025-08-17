@@ -14,6 +14,14 @@ item:
       <green>Have fun with cooking!
   plate:
     name: "<reset>Plate"
+  immature_tomato:
+    name: "<green>Immature Tomato"
+    lore: |-
+      <italic>You'd better not eat it
+  tomato:
+    name: "<red>Tomato"
+  tomato_plant:
+    name: "<red>Tomato <green>Plant"
 
 waila:
   plant: "%name% <white>Plant | Current: <green>%percent%%"

@@ -4,6 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+/**
+ * The fast map for floor key find
+ * @param <V> the value type
+ */
 public class FastFloorKeyMap<V> implements Map<Integer, V> {
     private final Map<Integer, V> map;
     private int[] sortedKeys = new int[0];
