@@ -1,4 +1,4 @@
-package io.github.lijinhong11.pylonsdelight.objects.map;
+package io.github.lijinhong11.pylonsdelight.util.map;
 
 import org.jetbrains.annotations.NotNull;
 

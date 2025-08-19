@@ -1,4 +1,4 @@
-package io.github.lijinhong11.pylonsdelight.objects;
+package io.github.lijinhong11.pylonsdelight.recipes;
 
 import io.github.lijinhong11.pylonsdelight.recipes.wok.Dish;
 

@@ -1,9 +1,8 @@
 package io.github.lijinhong11.pylonsdelight;
 
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
-import io.github.lijinhong11.pylonsdelight.listeners.FoodListener;
 import io.github.lijinhong11.pylonsdelight.listeners.PlantListener;
-import io.github.lijinhong11.pylonsdelight.util.DelightPages;
+import io.github.lijinhong11.pylonsdelight.objects.DelightPages;
 import io.github.pylonmc.pylon.core.addon.PylonAddon;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -30,7 +29,6 @@ public class Delight extends JavaPlugin implements PylonAddon {
 
     private void setupListeners() {
         Bukkit.getPluginManager().registerEvents(new PlantListener(), this);
-        Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
     }
 
     @Override

@@ -13,9 +13,7 @@ group = project.properties["group"]!!
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/") {
-        name = "papermc"
-    }
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.xenondevs.xyz/releases")
 }
 

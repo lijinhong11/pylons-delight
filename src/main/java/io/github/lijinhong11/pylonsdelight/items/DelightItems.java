@@ -1,34 +1,49 @@
 package io.github.lijinhong11.pylonsdelight.items;
 
 import com.destroystokyo.paper.profile.ProfileProperty;
+import io.github.lijinhong11.pylonsdelight.items.machines.ChoppingBoard;
 import io.github.lijinhong11.pylonsdelight.items.plants.sub.CucumberPlant;
 import io.github.lijinhong11.pylonsdelight.items.plants.sub.TomatoPlant;
 import io.github.lijinhong11.pylonsdelight.items.machines.Wok;
+import io.github.lijinhong11.pylonsdelight.recipes.Dishes;
 import io.github.lijinhong11.pylonsdelight.util.Constants;
-import io.github.lijinhong11.pylonsdelight.util.DelightKeys;
-import io.github.lijinhong11.pylonsdelight.util.DelightPages;
+import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
+import io.github.lijinhong11.pylonsdelight.objects.DelightPages;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.item.PylonItem;
 import io.github.pylonmc.pylon.core.item.builder.ItemStackBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.FoodProperties;
 import io.papermc.paper.datacomponent.item.ResolvableProfile;
+import io.papermc.paper.datacomponent.item.UseRemainder;
+import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
 
 public class DelightItems {
+    //cookers
     public static ItemStack WOK = ItemStackBuilder.pylonItem(Material.STRUCTURE_VOID, DelightKeys.WOK)
             .set(DataComponentTypes.ITEM_MODEL, Material.BLACK_CARPET.getKey())
             .build();
     public static ItemStack PLATE = ItemStackBuilder.pylonItem(Material.BOWL, DelightKeys.PLATE).build();
+    public static ItemStack SLICE = ItemStackBuilder.pylonItem(Material.STONE_SHOVEL, DelightKeys.SLICE).build();
+    public static ItemStack KNIFE = ItemStackBuilder.pylonItem(Material.IRON_SWORD, DelightKeys.KNIFE).build();
+    public static ItemStack CHOPPING_BOARD = ItemStackBuilder.pylonItem(Material.OAK_PRESSURE_PLATE, DelightKeys.CHOPPING_BOARD).build();
 
+    //plants & food
     public static ItemStack IMMATURE_TOMATO = ItemStackBuilder.pylonItem(Material.PLAYER_HEAD, DelightKeys.IMMATURE_TOMATO)
             .set(DataComponentTypes.PROFILE, ResolvableProfile
                     .resolvableProfile()
                     .name(Constants.HEAD)
                     .addProperty(new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTllN2MyMTY3MzI4M2NlNjMwMDExY2M1MzgyNDYxMDg4MmNkZTNkOWE4YjYzMGMwZTIzMDU4ZTMxNDRkYiJ9fX0="))
                     .build())
-            .set(DataComponentTypes.FOOD, FoodProperties.food().nutrition(2).saturation(0.3f).canAlwaysEat(false).build())
+            .set(DataComponentTypes.FOOD, FoodProperties.food().nutrition(3).saturation(0.3f).canAlwaysEat(false).build())
+            .set(DataComponentTypes.CONSUMABLE, Consumable.consumable().consumeSeconds(Constants.COMMON_EAT_SECONDS).addEffects(List.of(ConsumeEffect.applyStatusEffects(List.of(new PotionEffect(PotionEffectType.NAUSEA, 60, 1),new PotionEffect(PotionEffectType.POISON, 30, 2)), 1))).build())
             .build();
     public static ItemStack TOMATO = ItemStackBuilder.pylonItem(Material.PLAYER_HEAD, DelightKeys.TOMATO)
             .set(DataComponentTypes.PROFILE, ResolvableProfile
@@ -37,6 +52,7 @@ public class DelightItems {
                     .addProperty(new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzhiNzUyZTUyMzJiMDM5YjFlNzVlNDU0MTgzYTE5MmQ0MDU3YjdjYTgzMmY3YzI0YTVmZDg2Nzk2OWNiNGQifX19"))
                     .build())
             .set(DataComponentTypes.FOOD, FoodProperties.food().nutrition(4).saturation(0.5f).canAlwaysEat(false).build())
+            .set(DataComponentTypes.CONSUMABLE, Consumable.consumable().consumeSeconds(Constants.COMMON_EAT_SECONDS).build())
             .build();
     public static ItemStack TOMATO_PLANT = ItemStackBuilder.pylonItem(Material.OAK_SAPLING, DelightKeys.TOMATO_PLANT).build();
 
@@ -47,15 +63,38 @@ public class DelightItems {
                     .addProperty(new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTdlNDFlNThkNjcwNDMzM2RkMmJiNTgwYmViMTBkNTcxMzgyMjY0ZTVmOGVhMmM5OTkwZmI1MDI0YTg0N2VlNiJ9fX0="))
                     .build())
             .set(DataComponentTypes.FOOD, FoodProperties.food().nutrition(3).saturation(0.45f).canAlwaysEat(true).build())
+            .set(DataComponentTypes.CONSUMABLE, Consumable.consumable().consumeSeconds(Constants.COMMON_EAT_SECONDS).build())
+            .build();
+    public static ItemStack CUCUMBER_CUT = ItemStackBuilder.pylonItem(Material.PLAYER_HEAD, DelightKeys.CUCUMBER_CUT)
+            .set(DataComponentTypes.PROFILE, ResolvableProfile
+                    .resolvableProfile()
+                    .name(Constants.HEAD)
+                    .addProperty(new ProfileProperty("textures", ""))
+                    .build())
+            .set(DataComponentTypes.FOOD, FoodProperties.food().nutrition(3).saturation(0.45f).canAlwaysEat(true).build())
+            .set(DataComponentTypes.CONSUMABLE, Consumable.consumable().consumeSeconds(Constants.COMMON_EAT_SECONDS).build())
             .build();
     public static ItemStack CUCUMBER_PLANT = ItemStackBuilder.pylonItem(Material.OAK_SAPLING, DelightKeys.CUCUMBER_PLANT).build();
 
-    public static ItemStack FIRED_CHICKEN = ItemStackBuilder.pylonItem(Material.COOKED_CHICKEN, DelightKeys.FRIED_CHICKEN).build();
+    public static ItemStack FRIED_CHICKEN = ItemStackBuilder.pylonItem(Material.COOKED_CHICKEN, DelightKeys.FRIED_CHICKEN).build();
+
+    //dishes
+    public static ItemStack DISH_TOMATO_WITH_EGGS = ItemStackBuilder.pylonItem(Material.BOWL, DelightKeys.DISH_TOMATO_WITH_EGGS)
+            .set(DataComponentTypes.FOOD, Dishes.TOMATO_WITH_EGGS.toFoodComponent())
+            .set(DataComponentTypes.CONSUMABLE, Consumable.consumable().consumeSeconds(Constants.COMMON_EAT_DISH_SECONDS).build())
+            .set(DataComponentTypes.USE_REMAINDER, UseRemainder.useRemainder(PLATE))
+            .build();
 
     public static void setup() {
         //items
-        PylonItem.register(PylonItem.class, WOK, DelightKeys.WOK);
         PylonBlock.register(DelightKeys.WOK, Material.STRUCTURE_VOID, Wok.class);
+        PylonBlock.register(DelightKeys.CHOPPING_BOARD, Material.OAK_PRESSURE_PLATE, ChoppingBoard.class);
+
+        PylonItem.register(PylonItem.class, WOK, DelightKeys.WOK);
+        PylonItem.register(PylonItem.class, CHOPPING_BOARD, DelightKeys.CHOPPING_BOARD);
+        PylonItem.register(PylonItem.class, PLATE);
+        PylonItem.register(PylonItem.class, SLICE);
+        PylonItem.register(PylonItem.class, KNIFE);
 
         PylonItem.register(PylonItem.class, TOMATO_PLANT, DelightKeys.TOMATO_PLANT);
         PylonBlock.register(DelightKeys.TOMATO_PLANT, Material.OAK_SAPLING, TomatoPlant.class);
@@ -72,15 +111,28 @@ public class DelightItems {
         PylonItem.register(PylonItem.class, CUCUMBER, DelightKeys.CUCUMBER);
         PylonBlock.register(DelightKeys.CUCUMBER, Material.PLAYER_HEAD, PylonBlock.class);
 
-        PylonItem.register(PylonItem.class, PLATE);
+        PylonItem.register(PylonItem.class, CUCUMBER_CUT);
+        PylonBlock.register(DelightKeys.CUCUMBER_CUT, Material.PLAYER_HEAD, PylonBlock.class);
+
+        PylonItem.register(PylonItem.class, FRIED_CHICKEN);
+
+        //dishes' items
+        PylonItem.register(PylonItem.class, DISH_TOMATO_WITH_EGGS);
 
         //pages
         DelightPages.COOKERS.addItem(DelightKeys.WOK);
         DelightPages.COOKERS.addItem(DelightKeys.PLATE);
+        DelightPages.COOKERS.addItem(DelightKeys.SLICE);
+        DelightPages.COOKERS.addItem(DelightKeys.KNIFE);
+        DelightPages.COOKERS.addItem(DelightKeys.CHOPPING_BOARD);
 
         DelightPages.PLANTS.addItem(DelightKeys.TOMATO_PLANT);
+        DelightPages.PLANTS.addItem(DelightKeys.CUCUMBER_PLANT);
 
         DelightPages.FOOD.addItem(DelightKeys.IMMATURE_TOMATO);
         DelightPages.FOOD.addItem(DelightKeys.TOMATO);
+        DelightPages.FOOD.addItem(DelightKeys.CUCUMBER);
+        DelightPages.FOOD.addItem(DelightKeys.CUCUMBER_CUT);
+        DelightPages.FOOD.addItem(DelightKeys.FRIED_CHICKEN);
     }
 }

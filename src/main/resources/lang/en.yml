@@ -6,6 +6,8 @@ guide:
     cookers: "<yellow>Cookers"
     food: "<gold>Food"
     plants: "<green>Plants"
+    drinks: "<blue>Drinks"
+    dishes: "<purple>Dishes"
 
 item:
   wok:
@@ -14,6 +16,13 @@ item:
       <green>Have fun with cooking!
   plate:
     name: "<reset>Plate"
+  slice:
+    name: "<dark_gray>Slice"
+  knife:
+    name: "<dark_gray>Knife"
+  chopping_board:
+    name: "<gold>Chopping Board"
+
   immature_tomato:
     name: "<green>Immature Tomato"
     lore: |-
@@ -22,6 +31,27 @@ item:
     name: "<red>Tomato"
   tomato_plant:
     name: "<red>Tomato <green>Plant"
+  cucumber:
+    name: "<green>Cucumber"
+  cucumber_plant:
+    name: "<green>Cucumber Plant"
+
+  fried_chicken:
+    name: "<yellow>Fried Chicken"
+    lore: |-
+      <yellow>Delicious!
+
+  dish_tomato_with_eggs:
+    name: "<blue>Dish | <red>Tomato <green>with <yellow>Eggs"
+
+message:
+  inv-full: "<red>Your inventory is full!"
+  wok:
+    no-match: "<dark_red>These materials cannot make a dish!"
+    stir: "<green>You stir once!"
+    start-stir: "<yellow>Started stir frying..."
+    no-stir-yet: "<red>The dish haven't been stir fried yet!"
+    full: "<red>The wok is full!"
 
 waila:
   plant: "%name% <white>Plant | Current: <green>%percent%%"
