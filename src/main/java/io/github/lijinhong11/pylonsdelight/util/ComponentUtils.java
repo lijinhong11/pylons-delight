@@ -1,5 +1,6 @@
 package io.github.lijinhong11.pylonsdelight.util;
 
+import io.github.pylonmc.pylon.core.i18n.PylonArgument;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 
@@ -12,5 +13,9 @@ public class ComponentUtils {
 
     public static Component getTranslatableMessage(String key) {
         return Component.translatable("pylon.pylons-delight.message." + key);
+    }
+
+    public static Component getTranslatableMessage(String key, PylonArgument... args) {
+        return Component.translatable("pylon.pylons-delight.message." + key, args);
     }
 }

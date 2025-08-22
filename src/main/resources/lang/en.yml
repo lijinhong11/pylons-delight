@@ -23,18 +23,23 @@ item:
   chopping_board:
     name: "<gold>Chopping Board"
 
+  tomato_plant:
+    name: "<red>Tomato <green>Plant"
+  cucumber_plant:
+    name: "<green>Cucumber Plant"
+  cabbage_plant:
+    name: "<green>Cabbage Plant"
+
   immature_tomato:
     name: "<green>Immature Tomato"
     lore: |-
       <italic>You'd better not eat it
   tomato:
     name: "<red>Tomato"
-  tomato_plant:
-    name: "<red>Tomato <green>Plant"
   cucumber:
     name: "<green>Cucumber"
-  cucumber_plant:
-    name: "<green>Cucumber Plant"
+  cabbage:
+    name: "<green>Cabbage"
 
   fried_chicken:
     name: "<yellow>Fried Chicken"
@@ -42,16 +47,23 @@ item:
       <yellow>Delicious!
 
   dish_tomato_with_eggs:
-    name: "<blue>Dish | <red>Tomato <green>with <yellow>Eggs"
+    name: "<red>Tomato <green>with <yellow>Eggs"
 
 message:
   inv-full: "<red>Your inventory is full!"
   wok:
-    no-match: "<dark_red>These materials cannot make a dish!"
+    no-match: "<red>These materials cannot make a dish!"
     stir: "<green>You stir once!"
     start-stir: "<yellow>Started stir frying..."
     no-stir-yet: "<red>The dish haven't been stir fried yet!"
     full: "<red>The wok is full!"
+    no-dish: "<red>There's no dish that you can take it out..."
+  chopping_board:
+    no-match: "<red>The material can't be cut!"
+    no-item: "<red>There's no item on the chopping board!"
+    chop: "<aqua>You have chopped %cuts% times."
+    no-cut-more: "<red>You can't cut more!"
+    already-placed: "<red>There's already an item on the chopping board!"
 
 waila:
   plant: "%name% <white>Plant | Current: <green>%percent%%"

@@ -1,6 +1,6 @@
 package io.github.lijinhong11.pylonsdelight.items.plants;
 
-import io.github.lijinhong11.pylonsdelight.objects.PlantStage;
+import io.github.lijinhong11.pylonsdelight.objects.plant.PlantStage;
 import io.github.lijinhong11.pylonsdelight.util.map.FastFloorKeyMap;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
@@ -29,8 +29,8 @@ import java.util.List;
 public abstract class Plant extends PylonBlock implements PylonTickingBlock, PylonInteractableBlock {
     protected final FastFloorKeyMap<PlantStage> stages = new FastFloorKeyMap<>();
 
-    protected int ticks = 0;
-    protected PlantStage currentStage;
+    private int ticks = 0;
+    private PlantStage currentStage;
 
     private BlockFace rotate = BlockFace.NORTH;
 
@@ -119,6 +119,11 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
         if (currentStage != null) {
             currentStage.edits().accept(getBlock());
         }
+    }
+
+    public void setToLastStage() {
+        PlantStage[] stages = this.stages.values().toArray(new PlantStage[0]);
+        currentStage = stages[stages.length - 1];
     }
 
     //abstract methods

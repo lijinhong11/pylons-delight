@@ -2,9 +2,7 @@ package io.github.lijinhong11.pylonsdelight.items.plants.sub;
 
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
 import io.github.lijinhong11.pylonsdelight.items.plants.Plant;
-import io.github.lijinhong11.pylonsdelight.objects.PlantStage;
-import io.github.pylonmc.pylon.core.block.base.PylonInteractableBlock;
-import io.github.pylonmc.pylon.core.block.base.PylonTickingBlock;
+import io.github.lijinhong11.pylonsdelight.objects.plant.PlantStage;
 import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import net.kyori.adventure.text.Component;
 import org.bukkit.block.Block;

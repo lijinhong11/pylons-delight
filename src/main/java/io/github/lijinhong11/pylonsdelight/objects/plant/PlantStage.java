@@ -1,4 +1,4 @@
-package io.github.lijinhong11.pylonsdelight.objects;
+package io.github.lijinhong11.pylonsdelight.objects.plant;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;

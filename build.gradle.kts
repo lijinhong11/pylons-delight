@@ -24,6 +24,8 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("io.github.pylonmc:pylon-core:$coreVersion")
     compileOnly("io.github.pylonmc:pylon-base:$baseVersion")
+
+    implementation("com.jeff-media:MorePersistentDataTypes:2.4.0")
 }
 
 idea {
@@ -40,9 +42,8 @@ java {
 tasks.shadowJar {
     mergeServiceFiles()
 
-    fun doRelocate(lib: String) {
-        relocate(lib, "$group.shadowlibs.$lib")
-    }
+    exclude("com/jeff_media/morepersistentdatatypes/DataType_1_18_1.class")
+    relocate("com.jeff_media.morepersistentdatatypes", "io.github.lijinhong11.pylonsdelight.libraries.datatypes")
 
     archiveBaseName = project.name
     archiveClassifier = null
