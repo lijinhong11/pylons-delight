@@ -2,9 +2,11 @@ package io.github.lijinhong11.pylonsdelight.items.machines;
 
 import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
+import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
 import io.github.lijinhong11.pylonsdelight.objects.entity.DelightBlockDisplay;
 import io.github.lijinhong11.pylonsdelight.recipes.general.WokRecipes;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
+import io.github.lijinhong11.pylonsdelight.recipes.wok.WokRecipe;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.lijinhong11.pylonsdelight.util.EntityUtils;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
@@ -17,6 +19,7 @@ import io.github.pylonmc.pylon.core.entity.display.BlockDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.ItemDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.transform.TransformBuilder;
 import io.github.pylonmc.pylon.core.item.PylonItem;
+import io.github.pylonmc.pylon.core.recipe.RecipeType;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -36,6 +39,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTickingBlock, PylonInteractableBlock {
+
+    public static final RecipeType<WokRecipe> RECIPE_TYPE = new RecipeType<>(DelightKeys.RT_WOK);
+
     private List<ItemStack> items = new ArrayList<>();
 
     private int ticks;

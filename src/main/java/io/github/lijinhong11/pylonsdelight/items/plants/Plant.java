@@ -1,6 +1,7 @@
 package io.github.lijinhong11.pylonsdelight.items.plants;
 
 import io.github.lijinhong11.pylonsdelight.objects.plant.PlantStage;
+import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.lijinhong11.pylonsdelight.util.map.FastFloorKeyMap;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
@@ -23,8 +24,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public abstract class Plant extends PylonBlock implements PylonTickingBlock, PylonInteractableBlock {
     protected final FastFloorKeyMap<PlantStage> stages = new FastFloorKeyMap<>();
@@ -101,7 +100,7 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
 
         PylonArgument name = PylonArgument.of("name", getItemName());
         PylonArgument percentArg = PylonArgument.of("percent", percent);
-        return new WailaConfig(Component.translatable("pylon.pylons-delight.waila.plant"), List.of(name, percentArg), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS, percent / 100f);
+        return new WailaConfig(ComponentUtils.getTranslatableMessage("waila.plant", name, percentArg), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS, percent / 100f);
     }
 
     @Override

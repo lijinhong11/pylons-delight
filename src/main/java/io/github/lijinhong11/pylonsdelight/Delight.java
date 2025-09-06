@@ -5,6 +5,7 @@ import io.github.lijinhong11.pylonsdelight.items.DelightPlantItems;
 import io.github.lijinhong11.pylonsdelight.listeners.PlantListener;
 import io.github.lijinhong11.pylonsdelight.objects.DelightPages;
 import io.github.lijinhong11.pylonsdelight.recipes.general.DelightRecipeSetup;
+import io.github.lijinhong11.pylonsdelight.recipes.general.WokRecipes;
 import io.github.pylonmc.pylon.core.addon.PylonAddon;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

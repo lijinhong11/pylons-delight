@@ -46,6 +46,9 @@ public class DelightKeys {
     //dishes
     public static final NamespacedKey DISH_TOMATO_WITH_EGGS = key("dish_tomato_with_eggs");
 
+    //recipe types
+    public static final NamespacedKey RT_WOK = key("recipe_type_wok");
+
     static NamespacedKey key(String key) {
         return new NamespacedKey(Delight.INSTANCE, key);
     }

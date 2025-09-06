@@ -3,6 +3,7 @@ package io.github.lijinhong11.pylonsdelight.items.machines;
 import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
+import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
 import io.github.lijinhong11.pylonsdelight.recipes.general.Choppings;
 import io.github.lijinhong11.pylonsdelight.recipes.choppingboard.Chopping;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
@@ -14,6 +15,7 @@ import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.ItemDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.transform.TransformBuilder;
 import io.github.pylonmc.pylon.core.i18n.PylonArgument;
+import io.github.pylonmc.pylon.core.recipe.RecipeType;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ItemDisplay;
@@ -28,6 +30,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 public class ChoppingBoard extends PylonBlock implements PylonInteractableBlock, PylonEntityHolderBlock {
+    public static final RecipeType<Chopping> RECIPE_TYPE = new RecipeType<>(DelightKeys.CHOPPING_BOARD);
+
     private int cuts;
     private ItemStack item;
     private Chopping currentChopping;

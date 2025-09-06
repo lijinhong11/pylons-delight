@@ -31,8 +31,8 @@ public class EntityUtils {
         return switch (place) {
             case NORTH, NORTH_NORTH_EAST, NORTH_EAST, NORTH_WEST, NORTH_NORTH_WEST, SOUTH, DOWN, UP, SOUTH_EAST,
                  SOUTH_SOUTH_EAST, SOUTH_SOUTH_WEST, SELF, SOUTH_WEST -> base;
-            case EAST, EAST_NORTH_EAST, EAST_SOUTH_EAST -> base.rotateZ((float) Math.toRadians(90));
-            case WEST, WEST_NORTH_WEST, WEST_SOUTH_WEST -> base.rotateZ((float) Math.toRadians(-90));
+            case EAST, EAST_NORTH_EAST, EAST_SOUTH_EAST -> base.rotateZ((float) Math.toRadians(-90));
+            case WEST, WEST_NORTH_WEST, WEST_SOUTH_WEST -> base.rotateZ((float) Math.toRadians(90));
         };
     }
 }

@@ -31,7 +31,7 @@ public class DelightItems {
             .set(DataComponentTypes.ITEM_MODEL, Material.BLACK_CARPET.getKey())
             .build(),
 
-    RAW_PLATE = ItemStackBuilder.pylonItem(Material.BOWL, DelightKeys.RAW_PLATE),
+    RAW_PLATE = ItemStackBuilder.pylonItem(Material.BOWL, DelightKeys.RAW_PLATE).build(),
 
     PLATE = ItemStackBuilder.pylonItem(Material.BOWL, DelightKeys.PLATE).build(),
     SLICE = ItemStackBuilder.pylonItem(Material.STONE_SHOVEL, DelightKeys.SLICE).build(),
@@ -144,6 +144,9 @@ public class DelightItems {
 
         //dishes' items
         PylonItem.register(PylonItem.class, DISH_TOMATO_WITH_EGGS);
+
+        //drinks
+        PylonItem.register(PylonItem.class, BUBBLE_WATER);
 
         //pages
         DelightPages.COOKERS.addItem(DelightKeys.WOK);

@@ -20,7 +20,6 @@ public record FacedLocation(Location base, BlockFace face) {
         return switch (face) {
             case NORTH, SOUTH, EAST, WEST, UP, DOWN -> face;
             default -> {
-                // 有 X/Z 分量 → 水平方向
                 if (Math.abs(face.getModX()) > Math.abs(face.getModZ())) {
                     yield face.getModX() > 0 ? BlockFace.EAST : BlockFace.WEST;
                 } else if (Math.abs(face.getModZ()) > 0) {
@@ -37,34 +36,28 @@ public record FacedLocation(Location base, BlockFace face) {
         double rx, ry, rz;
 
         switch (face) {
-            case NORTH: // 面向 Z-
+            case NORTH:
                 rx = x;
                 ry = y;
                 rz = -z;
                 break;
-            case SOUTH: // 面向 Z+
+            case SOUTH:
                 rx = -x;
                 ry = y;
                 rz = z;
                 break;
-            case EAST: // 面向 X+
+            case EAST:
                 rx = z;
                 ry = y;
                 rz = x;
                 break;
-            case WEST: // 面向 X-
+            case WEST:
                 rx = -z;
                 ry = y;
                 rz = -x;
                 break;
-
-            case UP: // Y+
-            case DOWN: // Y-
-                rx = x;
-                ry = z;
-                rz = y;
-                break;
-
+            case UP:
+            case DOWN:
             default:
                 rx = x;
                 ry = y;
@@ -89,13 +82,5 @@ public record FacedLocation(Location base, BlockFace face) {
 
     public Location toLeft(double distance) {
         return getRelative(-distance, 0, 0);
-    }
-
-    public Location above(double distance) {
-        return getRelative(0, distance, 0);
-    }
-
-    public Location below(double distance) {
-        return getRelative(0, -distance, 0);
     }
 }
