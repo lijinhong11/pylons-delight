@@ -4,8 +4,8 @@ import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
-import io.github.lijinhong11.pylonsdelight.recipes.general.Choppings;
-import io.github.lijinhong11.pylonsdelight.recipes.choppingboard.Chopping;
+import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
+import io.github.lijinhong11.pylonsdelight.recipes.subs.Chopping;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
@@ -15,7 +15,6 @@ import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.ItemDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.transform.TransformBuilder;
 import io.github.pylonmc.pylon.core.i18n.PylonArgument;
-import io.github.pylonmc.pylon.core.recipe.RecipeType;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ItemDisplay;
@@ -29,8 +28,10 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class ChoppingBoard extends PylonBlock implements PylonInteractableBlock, PylonEntityHolderBlock {
-    public static final RecipeType<Chopping> RECIPE_TYPE = new RecipeType<>(DelightKeys.CHOPPING_BOARD);
+    public static final CommonRecipeType<Chopping> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.CHOPPING_BOARD);
 
     private int cuts;
     private ItemStack item;
@@ -58,7 +59,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractableBlock,
 
         this.cuts = pdc.getOrDefault(DelightDataKeys.CUTS, PersistentDataType.INTEGER, 0);
         this.item = pdc.get(DelightDataKeys.ITEM, DataType.ITEM_STACK);
-        this.currentChopping = Choppings.findChopping(item);
+        this.currentChopping = RECIPE_TYPE.findRecipe(item);
     }
 
     @Override
@@ -136,7 +137,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractableBlock,
 
             ItemStack dest = hand.asOne();
 
-            Chopping chopping = Choppings.findChopping(dest);
+            Chopping chopping = RECIPE_TYPE.findRecipe(List.of(dest));
             if (chopping == null) {
                 p.sendMessage(ComponentUtils.getTranslatableMessage("chopping_board.no-match"));
                 e.setCancelled(true);

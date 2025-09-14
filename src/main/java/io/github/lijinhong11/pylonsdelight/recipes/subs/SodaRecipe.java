@@ -1,9 +1,9 @@
-package io.github.lijinhong11.pylonsdelight.recipes.soda;
+package io.github.lijinhong11.pylonsdelight.recipes.subs;
 
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
+import io.github.lijinhong11.pylonsdelight.recipes.DelightRecipe;
 import io.github.pylonmc.pylon.core.guide.button.ItemButton;
 import io.github.pylonmc.pylon.core.recipe.FluidOrItem;
-import io.github.pylonmc.pylon.core.recipe.PylonRecipe;
 import io.github.pylonmc.pylon.core.util.gui.GuiItems;
 import lombok.Builder;
 import org.bukkit.NamespacedKey;
@@ -14,7 +14,7 @@ import xyz.xenondevs.invui.gui.Gui;
 import java.util.List;
 
 @Builder(toBuilder = true)
-public record SodaRecipe(NamespacedKey key, ItemStack input, ItemStack output, float gasPercent, int seconds) implements PylonRecipe {
+public record SodaRecipe(NamespacedKey key, ItemStack input, ItemStack output, float gasPercent, int seconds) implements DelightRecipe {
     @Override
     public @NotNull List<FluidOrItem> getInputs() {
         return List.of(FluidOrItem.of(input));

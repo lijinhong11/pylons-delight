@@ -4,9 +4,9 @@ import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
 import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
 import io.github.lijinhong11.pylonsdelight.objects.entity.DelightBlockDisplay;
-import io.github.lijinhong11.pylonsdelight.recipes.general.WokRecipes;
+import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
-import io.github.lijinhong11.pylonsdelight.recipes.wok.WokRecipe;
+import io.github.lijinhong11.pylonsdelight.recipes.subs.WokRecipe;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.lijinhong11.pylonsdelight.util.EntityUtils;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
@@ -19,7 +19,6 @@ import io.github.pylonmc.pylon.core.entity.display.BlockDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.ItemDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.transform.TransformBuilder;
 import io.github.pylonmc.pylon.core.item.PylonItem;
-import io.github.pylonmc.pylon.core.recipe.RecipeType;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -40,7 +39,7 @@ import java.util.List;
 
 public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTickingBlock, PylonInteractableBlock {
 
-    public static final RecipeType<WokRecipe> RECIPE_TYPE = new RecipeType<>(DelightKeys.RT_WOK);
+    public static final CommonRecipeType<WokRecipe> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.WOK);
 
     private List<ItemStack> items = new ArrayList<>();
 
@@ -93,10 +92,7 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
                 }
             }
 
-            if (hand.isSimilar(DelightItems.KNIFE)
-                    || hand.isSimilar(DelightItems.CHOPPING_BOARD)
-                    || hand.isSimilar(DelightItems.SODA_MAKER)
-            ) {
+            if (Tag.ITEMS_BREAKS_DECORATED_POTS.isTagged(hand.getType())) {
                 return;
             }
 
@@ -114,29 +110,28 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
                     e.setCancelled(true);
                     return;
                 }
-                
-                if (WokRecipes.checkDone(items, ticks)) {
-                    ItemStack result = WokRecipes.getResult(items);
-                    if (result != null) {
-                        int amount = hand.getAmount();
-                        if (amount > 1) {
-                            if (inv.firstEmpty() == -1) {
-                                p.sendMessage(ComponentUtils.getTranslatableMessage("inv-full"));
-                                e.setCancelled(true);
-                                return;
-                            }
 
-                            hand.setAmount(amount - 1);
-                            inv.addItem(result);
-                        } else {
-                            inv.setItemInMainHand(result);
+                WokRecipe recipe = RECIPE_TYPE.findRecipe(items);
+                if (recipe != null && recipe.isDone(ticks)) {
+                    ItemStack result = recipe.output().getItem();
+                    int amount = hand.getAmount();
+                    if (amount > 1) {
+                        if (inv.firstEmpty() == -1) {
+                            p.sendMessage(ComponentUtils.getTranslatableMessage("inv-full"));
+                            e.setCancelled(true);
+                            return;
                         }
 
-                        ticks = 0;
-                        stirs = 0;
-                        items.clear();
-                        e.setCancelled(true);
+                        hand.setAmount(amount - 1);
+                        inv.addItem(result);
+                    } else {
+                        inv.setItemInMainHand(result);
                     }
+
+                    ticks = 0;
+                    stirs = 0;
+                    items.clear();
+                    e.setCancelled(true);
                     return;
                 } else {
                     p.sendMessage(ComponentUtils.getTranslatableMessage("wok.no-stir-yet"));
@@ -145,7 +140,7 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
             }
 
             if (hand.isSimilar(DelightItems.SLICE)) {
-                if (WokRecipes.findRecipe(items)) {
+                if (RECIPE_TYPE.gotRecipe(items)) {
                     if (stirs == 0) {
                         stirs = 1;
                         p.sendMessage(ComponentUtils.getTranslatableMessage("wok.start-stir"));
@@ -181,7 +176,8 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
     @Override
     public void tick(double deltaSeconds) {
         if (ticks > 0) {
-            if (WokRecipes.checkDone(items, ticks)) {
+            WokRecipe recipe = RECIPE_TYPE.findRecipe(items);
+            if (recipe != null && recipe.isDone(ticks)) {
                 ticks = Math.max(ticks, 1);
                 return;
             }

@@ -4,8 +4,8 @@ import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
 import io.github.lijinhong11.pylonsdelight.objects.entity.DelightBlockDisplay;
-import io.github.lijinhong11.pylonsdelight.recipes.soda.SodaRecipe;
-import io.github.lijinhong11.pylonsdelight.util.EntityUtils;
+import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
+import io.github.lijinhong11.pylonsdelight.recipes.subs.SodaRecipe;
 import io.github.lijinhong11.pylonsdelight.util.FacedLocation;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
@@ -16,20 +16,23 @@ import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.BlockDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.ItemDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.transform.TransformBuilder;
-import io.github.pylonmc.pylon.core.recipe.RecipeType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
+import java.util.List;
+
 public class SodaMaker extends PylonBlock implements PylonInteractableBlock, PylonTickingBlock, PylonEntityHolderBlock {
-    public static final RecipeType<SodaRecipe> RECIPE_TYPE = new RecipeType<>(DelightKeys.SODA_MAKER);
+    public static final CommonRecipeType<SodaRecipe> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.SODA_MAKER);
 
     private int ticks;
     private ItemStack item;
@@ -55,7 +58,22 @@ public class SodaMaker extends PylonBlock implements PylonInteractableBlock, Pyl
 
     @Override
     public void onInteract(@NotNull PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        PlayerInventory inv = p.getInventory();
+        ItemStack hand = inv.getItemInMainHand();
 
+        if (hand.getType().isAir()) {
+
+        } else {
+            SodaRecipe recipe = RECIPE_TYPE.findRecipe(List.of(hand));
+            if (recipe != null) {
+
+            } else {
+
+            }
+        }
+
+        e.setCancelled(true);
     }
 
     @Override
@@ -127,7 +145,7 @@ public class SodaMaker extends PylonBlock implements PylonInteractableBlock, Pyl
                         .transformation(
                                 new TransformBuilder()
                                         .scale(0.4)
-                                        .rotate(EntityUtils.getQuaternionForRotation(new Quaternionf(), face))
+                                        .rotate(connect)
                         )
                         .build(center.clone().add(0, 0.425, 0))
         ));

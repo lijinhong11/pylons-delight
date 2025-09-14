@@ -1,11 +1,11 @@
-package io.github.lijinhong11.pylonsdelight.recipes.choppingboard;
+package io.github.lijinhong11.pylonsdelight.recipes.subs;
 
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
+import io.github.lijinhong11.pylonsdelight.recipes.DelightRecipe;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.pylonmc.pylon.core.guide.button.ItemButton;
 import io.github.pylonmc.pylon.core.i18n.PylonArgument;
 import io.github.pylonmc.pylon.core.recipe.FluidOrItem;
-import io.github.pylonmc.pylon.core.recipe.PylonRecipe;
 import io.github.pylonmc.pylon.core.util.gui.GuiItems;
 import lombok.Builder;
 import org.bukkit.Material;
@@ -17,7 +17,7 @@ import xyz.xenondevs.invui.gui.Gui;
 import java.util.List;
 
 @Builder(toBuilder = true)
-public record Chopping(NamespacedKey key, ItemStack input, ItemStack output, int maxCuts) implements PylonRecipe {
+public record Chopping(NamespacedKey key, ItemStack input, ItemStack output, int maxCuts) implements DelightRecipe {
     @Override
     public @NotNull List<FluidOrItem> getInputs() {
         return List.of(FluidOrItem.of(input));

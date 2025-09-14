@@ -22,6 +22,7 @@ public class DelightKeys {
     public static final NamespacedKey KNIFE = key("knife");
     public static final NamespacedKey CHOPPING_BOARD = key("chopping_board");
     public static final NamespacedKey SODA_MAKER = key("soda_maker");
+    public static final NamespacedKey FRIER = key("frier");
 
     //plants
     public static final NamespacedKey TOMATO_PLANT = key("tomato_plant");
@@ -45,9 +46,6 @@ public class DelightKeys {
 
     //dishes
     public static final NamespacedKey DISH_TOMATO_WITH_EGGS = key("dish_tomato_with_eggs");
-
-    //recipe types
-    public static final NamespacedKey RT_WOK = key("recipe_type_wok");
 
     static NamespacedKey key(String key) {
         return new NamespacedKey(Delight.INSTANCE, key);

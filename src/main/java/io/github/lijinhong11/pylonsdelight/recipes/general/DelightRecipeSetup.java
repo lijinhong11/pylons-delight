@@ -22,8 +22,6 @@ public class DelightRecipeSetup {
         wok.setCategory(CraftingBookCategory.MISC);
         RecipeType.VANILLA_SHAPED.addRecipe(wok);
 
-        WokRecipes.registerDefaultRecipe();
-
         ShapedRecipe raw_plate = new ShapedRecipe(DelightKeys.RAW_PLATE, DelightItems.RAW_PLATE)
                 .shape("   ", "ttt", " t ")
                 .setIngredient('t', ItemStack.of(Material.CLAY));
@@ -33,5 +31,11 @@ public class DelightRecipeSetup {
         FurnaceRecipe plate = new FurnaceRecipe(DelightKeys.PLATE, DelightItems.PLATE, new RecipeChoice.ExactChoice(DelightItems.RAW_PLATE), 15f, 10);
         plate.setCategory(CookingBookCategory.MISC);
         RecipeType.VANILLA_FURNACE.addRecipe(plate);
+
+        registerWokRecipes();
+    }
+
+    public static void registerWokRecipes() {
+
     }
 }
