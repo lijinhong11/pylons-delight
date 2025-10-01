@@ -10,7 +10,7 @@ import io.github.lijinhong11.pylonsdelight.util.FacedLocation;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
-import io.github.pylonmc.pylon.core.block.base.PylonInteractableBlock;
+import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonTickingBlock;
 import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.BlockDisplayBuilder;
@@ -31,7 +31,7 @@ import org.joml.Quaternionf;
 
 import java.util.List;
 
-public class SodaMaker extends PylonBlock implements PylonInteractableBlock, PylonTickingBlock, PylonEntityHolderBlock {
+public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTickingBlock, PylonEntityHolderBlock {
     public static final CommonRecipeType<SodaRecipe> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.SODA_MAKER);
 
     private int ticks;

@@ -12,7 +12,7 @@ import io.github.lijinhong11.pylonsdelight.util.EntityUtils;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
-import io.github.pylonmc.pylon.core.block.base.PylonInteractableBlock;
+import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonTickingBlock;
 import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.BlockDisplayBuilder;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTickingBlock, PylonInteractableBlock {
+public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTickingBlock, PylonInteractBlock {
 
     public static final CommonRecipeType<WokRecipe> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.WOK);
 
@@ -75,25 +75,17 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
 
     @Override
     public void onInteract(@NotNull PlayerInteractEvent e) {
-        if (EquipmentSlot.HAND != e.getHand()) {
-            return;
-        }
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getHand() == EquipmentSlot.HAND) {
+            Player p = e.getPlayer();
+            PlayerInventory inv = p.getInventory();
+            ItemStack hand = inv.getItemInMainHand();
+            World world = p.getWorld();
 
-        Player p = e.getPlayer();
-        PlayerInventory inv = p.getInventory();
-        ItemStack hand = inv.getItemInMainHand();
-        World world = p.getWorld();
-
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             PylonItem pylon = PylonItem.fromStack(hand);
             if (pylon != null) {
                 if (pylon.getKey().getKey().startsWith("dish")) {
                     return;
                 }
-            }
-
-            if (Tag.ITEMS_BREAKS_DECORATED_POTS.isTagged(hand.getType())) {
-                return;
             }
 
             if (p.isSneaking() && hand.getType().isAir()) {
@@ -158,12 +150,16 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
             }
 
             if (!hand.getType().isAir()) {
+                if (Tag.ITEMS_BREAKS_DECORATED_POTS.isTagged(hand.getType())) {
+                    return;
+                }
+
                 int slot = items.size();
                 if (slot < 6) {
                     items.add(hand.clone().asOne());
                     hand.setAmount(hand.getAmount() - 1);
                     ticks = 1;
-                    world.spawnParticle(Particle.SMOKE, getBlock().getLocation(), 5);
+                    world.spawnParticle(Particle.SMOKE, getBlock().getLocation().toCenterLocation().subtract(0, 0.1, 0), 10);
                 } else {
                     p.sendMessage(ComponentUtils.getTranslatableMessage("wok.full"));
                 }

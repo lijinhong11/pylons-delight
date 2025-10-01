@@ -10,7 +10,7 @@ import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
-import io.github.pylonmc.pylon.core.block.base.PylonInteractableBlock;
+import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
 import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.ItemDisplayBuilder;
 import io.github.pylonmc.pylon.core.entity.display.transform.TransformBuilder;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ChoppingBoard extends PylonBlock implements PylonInteractableBlock, PylonEntityHolderBlock {
+public class ChoppingBoard extends PylonBlock implements PylonInteractBlock, PylonEntityHolderBlock {
     public static final CommonRecipeType<Chopping> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.CHOPPING_BOARD);
 
     private int cuts;
