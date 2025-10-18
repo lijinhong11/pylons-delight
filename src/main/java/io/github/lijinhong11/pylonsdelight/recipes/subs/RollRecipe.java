@@ -3,24 +3,21 @@ package io.github.lijinhong11.pylonsdelight.recipes.subs;
 import io.github.lijinhong11.pylonsdelight.recipes.DelightRecipe;
 import io.github.pylonmc.pylon.core.recipe.FluidOrItem;
 import io.github.pylonmc.pylon.core.recipe.RecipeInput;
-import lombok.Builder;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import xyz.xenondevs.invui.gui.Gui;
 
 import java.util.List;
 
-@Builder(toBuilder = true)
-public record FrierRecipe(NamespacedKey key, ItemStack input, ItemStack output) implements DelightRecipe {
+public class RollRecipe implements DelightRecipe {
     @Override
     public @NotNull List<RecipeInput> getInputs() {
-        return List.of(RecipeInput.of(input));
+        return List.of();
     }
 
     @Override
     public @NotNull List<FluidOrItem> getResults() {
-        return List.of(FluidOrItem.of(output));
+        return List.of();
     }
 
     @Override
@@ -30,6 +27,6 @@ public record FrierRecipe(NamespacedKey key, ItemStack input, ItemStack output) 
 
     @Override
     public @NotNull NamespacedKey getKey() {
-        return key;
+        return null;
     }
 }

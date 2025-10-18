@@ -11,4 +11,5 @@ public class DelightDataKeys {
     public static final NamespacedKey CUTS = DelightKeys.key("knife_put");
     public static final NamespacedKey ITEMS = DelightKeys.key("items");
     public static final NamespacedKey ITEM = DelightKeys.key("item");
+    public static final NamespacedKey ROLLS = DelightKeys.key("rolls");
 }

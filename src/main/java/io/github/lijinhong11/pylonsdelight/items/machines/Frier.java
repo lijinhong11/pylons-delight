@@ -53,9 +53,12 @@ public class Frier extends PylonBlock implements PylonInteractBlock, PylonTickin
             World w = p.getWorld();
             ItemStack hand = inv.getItemInMainHand();
 
-            if (!hand.isEmpty())
-            if (Tag.ITEMS_BREAKS_DECORATED_POTS.isTagged(hand.getType())) {
-                return;
+            if (!hand.isEmpty()) {
+                if (Tag.ITEMS_BREAKS_DECORATED_POTS.isTagged(hand.getType())) {
+                    return;
+                }
+
+
             }
         }
     }

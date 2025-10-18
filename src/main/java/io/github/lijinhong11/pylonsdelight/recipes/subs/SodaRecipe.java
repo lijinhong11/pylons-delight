@@ -4,6 +4,7 @@ import io.github.lijinhong11.pylonsdelight.items.DelightItems;
 import io.github.lijinhong11.pylonsdelight.recipes.DelightRecipe;
 import io.github.pylonmc.pylon.core.guide.button.ItemButton;
 import io.github.pylonmc.pylon.core.recipe.FluidOrItem;
+import io.github.pylonmc.pylon.core.recipe.RecipeInput;
 import io.github.pylonmc.pylon.core.util.gui.GuiItems;
 import lombok.Builder;
 import org.bukkit.NamespacedKey;
@@ -16,8 +17,8 @@ import java.util.List;
 @Builder(toBuilder = true)
 public record SodaRecipe(NamespacedKey key, ItemStack input, ItemStack output, float gasPercent, int seconds) implements DelightRecipe {
     @Override
-    public @NotNull List<FluidOrItem> getInputs() {
-        return List.of(FluidOrItem.of(input));
+    public List<RecipeInput> getInputs() {
+        return List.of(RecipeInput.of(input));
     }
 
     @Override
@@ -36,9 +37,9 @@ public record SodaRecipe(NamespacedKey key, ItemStack input, ItemStack output, f
                         "# # # # # # # # #"
                 )
                 .addIngredient('#', GuiItems.backgroundBlack())
-                .addIngredient('b', ItemButton.fromStack(DelightItems.SODA_MAKER))
-                .addIngredient('0', ItemButton.fromStack(input))
-                .addIngredient('r', ItemButton.fromStack(output));
+                .addIngredient('b', ItemButton.from(DelightItems.SODA_MAKER))
+                .addIngredient('0', ItemButton.from(input))
+                .addIngredient('r', ItemButton.from(output));
 
         return builder.build();
     }

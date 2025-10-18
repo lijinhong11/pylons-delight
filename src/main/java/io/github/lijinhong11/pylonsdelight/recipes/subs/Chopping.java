@@ -6,6 +6,7 @@ import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.pylonmc.pylon.core.guide.button.ItemButton;
 import io.github.pylonmc.pylon.core.i18n.PylonArgument;
 import io.github.pylonmc.pylon.core.recipe.FluidOrItem;
+import io.github.pylonmc.pylon.core.recipe.RecipeInput;
 import io.github.pylonmc.pylon.core.util.gui.GuiItems;
 import lombok.Builder;
 import org.bukkit.Material;
@@ -19,8 +20,8 @@ import java.util.List;
 @Builder(toBuilder = true)
 public record Chopping(NamespacedKey key, ItemStack input, ItemStack output, int maxCuts) implements DelightRecipe {
     @Override
-    public @NotNull List<FluidOrItem> getInputs() {
-        return List.of(FluidOrItem.of(input));
+    public @NotNull List<RecipeInput> getInputs() {
+        return List.of(RecipeInput.of(input));
     }
 
     @Override
@@ -43,10 +44,10 @@ public record Chopping(NamespacedKey key, ItemStack input, ItemStack output, int
                         "# # # # # # # # #"
                 )
                 .addIngredient('#', GuiItems.backgroundBlack())
-                .addIngredient('b', ItemButton.fromStack(DelightItems.SODA_MAKER))
-                .addIngredient('0', ItemButton.fromStack(input))
-                .addIngredient('t', ItemButton.fromStack(maxCuts))
-                .addIngredient('r', ItemButton.fromStack(output));
+                .addIngredient('b', ItemButton.from(DelightItems.SODA_MAKER))
+                .addIngredient('0', ItemButton.from(input))
+                .addIngredient('t', ItemButton.from(maxCuts))
+                .addIngredient('r', ItemButton.from(output));
 
         return builder.build();
     }

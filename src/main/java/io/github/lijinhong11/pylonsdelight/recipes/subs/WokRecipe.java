@@ -5,6 +5,7 @@ import io.github.lijinhong11.pylonsdelight.recipes.DelightRecipe;
 import io.github.lijinhong11.pylonsdelight.recipes.wok.Dish;
 import io.github.pylonmc.pylon.core.guide.button.ItemButton;
 import io.github.pylonmc.pylon.core.recipe.FluidOrItem;
+import io.github.pylonmc.pylon.core.recipe.RecipeInput;
 import io.github.pylonmc.pylon.core.util.gui.GuiItems;
 import lombok.Builder;
 import org.bukkit.NamespacedKey;
@@ -24,8 +25,8 @@ public record WokRecipe(NamespacedKey key, Map<Integer, ItemStack> items,
     }
 
     @Override
-    public @NotNull List<FluidOrItem> getInputs() {
-        return items.values().stream().map(FluidOrItem::of).toList();
+    public @NotNull List<RecipeInput> getInputs() {
+        return items.values().stream().map(i -> (RecipeInput) RecipeInput.of(i)).toList();
     }
 
     @Override
@@ -44,8 +45,8 @@ public record WokRecipe(NamespacedKey key, Map<Integer, ItemStack> items,
                         "# # # # # # # # #"
                 )
                 .addIngredient('#', GuiItems.backgroundBlack())
-                .addIngredient('b', ItemButton.fromStack(DelightItems.WOK))
-                .addIngredient('r', ItemButton.fromStack(output.getItem()));
+                .addIngredient('b', ItemButton.from(DelightItems.WOK))
+                .addIngredient('r', ItemButton.from(output.getItem()));
 
         ItemStack[] recipeItems = items.values().toArray(ItemStack[]::new);
         for (int i = 0; i < 9; i ++) {

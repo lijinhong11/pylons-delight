@@ -149,24 +149,24 @@ public class DelightItems {
         PylonItem.register(PylonItem.class, BUBBLE_WATER);
 
         //pages
-        DelightPages.COOKERS.addItem(DelightKeys.WOK);
-        DelightPages.COOKERS.addItem(DelightKeys.PLATE);
-        DelightPages.COOKERS.addItem(DelightKeys.SLICE);
-        DelightPages.COOKERS.addItem(DelightKeys.KNIFE);
-        DelightPages.COOKERS.addItem(DelightKeys.CHOPPING_BOARD);
-        DelightPages.COOKERS.addItem(DelightKeys.SODA_MAKER);
+        DelightPages.COOKERS.addItem(WOK);
+        DelightPages.COOKERS.addItem(PLATE);
+        DelightPages.COOKERS.addItem(SLICE);
+        DelightPages.COOKERS.addItem(KNIFE);
+        DelightPages.COOKERS.addItem(CHOPPING_BOARD);
+        DelightPages.COOKERS.addItem(SODA_MAKER);
 
-        DelightPages.PLANTS.addItem(DelightKeys.TOMATO_PLANT);
-        DelightPages.PLANTS.addItem(DelightKeys.CUCUMBER_PLANT);
-        DelightPages.PLANTS.addItem(DelightKeys.CABBAGE_PLANT);
+        DelightPages.PLANTS.addItem(DelightPlantItems.TOMATO_PLANT);
+        DelightPages.PLANTS.addItem(DelightPlantItems.CUCUMBER_PLANT);
+        DelightPages.PLANTS.addItem(DelightPlantItems.CABBAGE_PLANT);
 
-        DelightPages.FOOD.addItem(DelightKeys.IMMATURE_TOMATO);
-        DelightPages.FOOD.addItem(DelightKeys.TOMATO);
-        DelightPages.FOOD.addItem(DelightKeys.CUCUMBER);
-        DelightPages.FOOD.addItem(DelightKeys.CUCUMBER_CUT);
-        DelightPages.FOOD.addItem(DelightKeys.CABBAGE);
-        DelightPages.FOOD.addItem(DelightKeys.FRIED_CHICKEN);
+        DelightPages.FOOD.addItem(IMMATURE_TOMATO);
+        DelightPages.FOOD.addItem(TOMATO);
+        DelightPages.FOOD.addItem(CUCUMBER);
+        DelightPages.FOOD.addItem(CUCUMBER_CUT);
+        DelightPages.FOOD.addItem(CABBAGE);
+        DelightPages.FOOD.addItem(FRIED_CHICKEN);
 
-        DelightPages.DRINKS.addItem(DelightKeys.BUBBLE_WATER);
+        DelightPages.DRINKS.addItem(BUBBLE_WATER);
     }
 }
