@@ -5,11 +5,11 @@ import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.lijinhong11.pylonsdelight.util.map.FastFloorKeyMap;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
-import io.github.pylonmc.pylon.core.block.base.PylonInteractableBlock;
+import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonTickingBlock;
 import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
-import io.github.pylonmc.pylon.core.block.waila.WailaConfig;
 import io.github.pylonmc.pylon.core.i18n.PylonArgument;
+import io.github.pylonmc.pylon.core.waila.WailaDisplay;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -25,7 +25,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Plant extends PylonBlock implements PylonTickingBlock, PylonInteractableBlock {
+public abstract class Plant extends PylonBlock implements PylonTickingBlock, PylonInteractBlock {
     protected final FastFloorKeyMap<PlantStage> stages = new FastFloorKeyMap<>();
 
     private int ticks = 0;
@@ -91,7 +91,7 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
     }
 
     @Override
-    public @NotNull WailaConfig getWaila(@NotNull Player player) {
+    public WailaDisplay getWaila(@NotNull Player player) {
         float percent = 0f;
 
         if (currentStage != null) {
@@ -100,7 +100,7 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
 
         PylonArgument name = PylonArgument.of("name", getItemName());
         PylonArgument percentArg = PylonArgument.of("percent", percent);
-        return new WailaConfig(ComponentUtils.getTranslatableMessage("waila.plant", name, percentArg), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS, percent / 100f);
+        return new WailaDisplay(ComponentUtils.getTranslatableMessage("waila.plant", name, percentArg), BossBar.Color.GREEN, BossBar.Overlay.PROGRESS, percent / 100f);
     }
 
     @Override

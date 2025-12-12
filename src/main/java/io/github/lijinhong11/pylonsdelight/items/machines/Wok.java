@@ -3,13 +3,11 @@ package io.github.lijinhong11.pylonsdelight.items.machines;
 import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.items.DelightItems;
 import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
-import io.github.lijinhong11.pylonsdelight.objects.entity.DelightBlockDisplay;
 import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.lijinhong11.pylonsdelight.recipes.subs.WokRecipe;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
 import io.github.lijinhong11.pylonsdelight.util.EntityUtils;
-import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
@@ -22,6 +20,8 @@ import io.github.pylonmc.pylon.core.item.PylonItem;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -36,12 +36,13 @@ import org.joml.Quaternionf;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTickingBlock, PylonInteractBlock {
-
     public static final CommonRecipeType<WokRecipe> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.WOK);
+    public static final int MAX_RECIPE_ITEMS = 9;
 
-    private List<ItemStack> items = new ArrayList<>();
+    private List<ItemStack> items = new ArrayList<>(MAX_RECIPE_ITEMS);
 
     private int ticks;
     private int stirs;
@@ -154,8 +155,7 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
                     return;
                 }
 
-                int slot = items.size();
-                if (slot < 6) {
+                if (items.size() < MAX_RECIPE_ITEMS) {
                     items.add(hand.clone().asOne());
                     hand.setAmount(hand.getAmount() - 1);
                     ticks = 1;
@@ -189,29 +189,52 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
         pdc.set(DelightDataKeys.ITEMS, DataType.ITEM_STACK_ARRAY, items.toArray(ItemStack[]::new));
     }
 
-    private DelightBlockDisplay createPan(Location loc) {
-        Location block = loc.toCenterLocation();
-        block.subtract(0, 0.1, 0);
-        return new DelightBlockDisplay(new BlockDisplayBuilder()
-                .material(Material.BLACK_CARPET)
-                .brightness(1)
-                .transformation(new TransformBuilder().scale(0.8))
-                .build(block));
+    private void rollItemEntities() {
+        if (items.isEmpty()) {
+            return;
+        }
+
+        int i = new Random().nextInt(items.size());
+        ItemDisplay display = getHeldEntity(ItemDisplay.class, "item_" + i);
+        if (display == null) {
+            return;
+        }
+
+
     }
 
-    private SimpleItemDisplay createStickEntity(Location loc, BlockFace face) {
+    private BlockDisplay createPan(Location loc) {
+        Location block = loc.toCenterLocation();
+        block.subtract(0, 0.1, 0);
+        return new BlockDisplayBuilder()
+                .material(Material.BLACK_CONCRETE)
+                .brightness(1)
+                .transformation(new TransformBuilder().scale(0.1, 0.8, 0.1))
+                .build(block);
+    }
+
+    private ItemDisplay createItemEntity(Location loc, ItemStack item) {
+        Location wok = loc.toCenterLocation();
+        wok.subtract(0, 0.4, 0);
+        return new ItemDisplayBuilder()
+                .itemStack(item)
+                .transformation(new TransformBuilder().scale(0.5, 0.5, 0.5))
+                .build(wok);
+    }
+
+    private ItemDisplay createStickEntity(Location loc, BlockFace face) {
         Location block = EntityUtils.moveBlockByFacing(loc.toCenterLocation(), face);
         block.subtract(-0.001, 0.485, -0.5);
 
         Quaternionf quaternionf = EntityUtils.getQuaternionForRotation(EntityUtils.BACK90_RIGHT45, face);
 
-        return new SimpleItemDisplay(new ItemDisplayBuilder()
+        return new ItemDisplayBuilder()
                 .transformation(
                         new TransformBuilder()
                                 .scale(0.45, 0.3, 0.45)
                                 .rotate(quaternionf)
                 )
                 .itemStack(ItemStack.of(Material.STICK))
-                .build(block));
+                .build(block);
     }
 }

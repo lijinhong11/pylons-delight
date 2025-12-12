@@ -2,6 +2,7 @@ package io.github.lijinhong11.pylonsdelight.util;
 
 import io.github.pylonmc.pylon.core.i18n.PylonArgument;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.NamespacedKey;
 
 public class ComponentUtils {
@@ -17,5 +18,9 @@ public class ComponentUtils {
 
     public static Component getTranslatableMessage(String key, PylonArgument... args) {
         return Component.translatable("pylon.pylons-delight.message." + key, args);
+    }
+
+    public static Component getSprite(String atlas, String sprite) {
+        return MiniMessage.miniMessage().deserialize("<sprite:" + (atlas == null ? "" : atlas + ":") + sprite + ">");
     }
 }

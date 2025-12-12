@@ -7,7 +7,6 @@ import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
 import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
 import io.github.lijinhong11.pylonsdelight.recipes.subs.Chopping;
 import io.github.lijinhong11.pylonsdelight.util.ComponentUtils;
-import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
@@ -43,7 +42,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractBlock, Pyl
         this.cuts = 0;
         this.item = null;
 
-        addEntity("item", new SimpleItemDisplay(
+        addEntity("item",
                 new ItemDisplayBuilder()
                         .transformation(
                                 new TransformBuilder()
@@ -51,7 +50,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractBlock, Pyl
                         )
                         .itemStack(ItemStack.of(Material.AIR))
                         .build(block.getLocation().toCenterLocation().subtract(0, 0.1, 0))
-        ));
+        );
     }
 
     public ChoppingBoard(@NotNull Block block, @NotNull PersistentDataContainer pdc) {
@@ -116,7 +115,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractBlock, Pyl
             if (cuts == 0) {
                 inv.addItem(item);
                 item = null;
-                ItemDisplay itemDisplay = (ItemDisplay) getHeldEntityOrThrow("item").getEntity();
+                ItemDisplay itemDisplay = (ItemDisplay) getHeldEntityOrThrow("item");
                 itemDisplay.setItemStack(ItemStack.of(Material.AIR));
                 e.setCancelled(true);
                 return;
@@ -125,7 +124,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractBlock, Pyl
             inv.addItem(currentChopping.output().asQuantity(cuts + 1));
             item = null;
             cuts = 0;
-            ItemDisplay itemDisplay = (ItemDisplay) getHeldEntityOrThrow("item").getEntity();
+            ItemDisplay itemDisplay = (ItemDisplay) getHeldEntityOrThrow("item");
             itemDisplay.setItemStack(ItemStack.of(Material.AIR));
             e.setCancelled(true);
         } else {
@@ -149,7 +148,7 @@ public class ChoppingBoard extends PylonBlock implements PylonInteractBlock, Pyl
             item = dest;
             cuts = 0;
             hand.setAmount(hand.getAmount() - 1);
-            ItemDisplay itemDisplay = (ItemDisplay) getHeldEntityOrThrow("item").getEntity();
+            ItemDisplay itemDisplay = (ItemDisplay) getHeldEntityOrThrow("item");
             itemDisplay.setItemStack(item);
             e.setCancelled(true);
         }

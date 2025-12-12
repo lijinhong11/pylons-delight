@@ -22,7 +22,7 @@ val coreVersion = project.properties["pylon-core.version"] as String
 val baseVersion = project.properties["pylon-base.version"] as String
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.9-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
     compileOnly("io.github.pylonmc:pylon-core:$coreVersion")
     compileOnly("io.github.pylonmc:pylon-base:$baseVersion")
 

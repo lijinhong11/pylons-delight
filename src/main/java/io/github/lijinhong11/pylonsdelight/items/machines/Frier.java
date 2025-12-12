@@ -4,13 +4,15 @@ import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
 import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
 import io.github.lijinhong11.pylonsdelight.recipes.subs.FrierRecipe;
-import io.github.pylonmc.pylon.base.entities.SimpleTextDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonTickingBlock;
 import io.github.pylonmc.pylon.core.block.context.BlockCreateContext;
 import io.github.pylonmc.pylon.core.entity.display.TextDisplayBuilder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.object.SpriteObjectContents;
 import org.bukkit.Location;
 import org.bukkit.Tag;
 import org.bukkit.World;
@@ -68,12 +70,13 @@ public class Frier extends PylonBlock implements PylonInteractBlock, PylonTickin
 
     }
 
-    private SimpleTextDisplay createFluidDisplay(Location loc) {
+    private TextDisplay createFluidDisplay(Location loc) {
         Location block = loc.toCenterLocation().add(0, 0.1, 0);
         TextDisplay display = new TextDisplayBuilder()
                 .billboard(Display.Billboard.FIXED)
+                .text()
                 .build(block);
         display.setTextOpacity((byte) 4);
-        return new SimpleTextDisplay(display);
+        return display;
     }
 }

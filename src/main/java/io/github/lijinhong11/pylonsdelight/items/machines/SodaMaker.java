@@ -3,11 +3,9 @@ package io.github.lijinhong11.pylonsdelight.items.machines;
 import com.jeff_media.morepersistentdatatypes.DataType;
 import io.github.lijinhong11.pylonsdelight.objects.DelightDataKeys;
 import io.github.lijinhong11.pylonsdelight.objects.DelightKeys;
-import io.github.lijinhong11.pylonsdelight.objects.entity.DelightBlockDisplay;
 import io.github.lijinhong11.pylonsdelight.recipes.CommonRecipeType;
 import io.github.lijinhong11.pylonsdelight.recipes.subs.SodaRecipe;
 import io.github.lijinhong11.pylonsdelight.util.FacedLocation;
-import io.github.pylonmc.pylon.base.entities.SimpleItemDisplay;
 import io.github.pylonmc.pylon.core.block.PylonBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonEntityHolderBlock;
 import io.github.pylonmc.pylon.core.block.base.PylonInteractBlock;
@@ -92,7 +90,7 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
 
     private void setupEntities(Location block, BlockFace face) {
         Location center = block.toCenterLocation().subtract(0, 0.5, 0);
-        addEntity("bottom", new DelightBlockDisplay(
+        addEntity("bottom",
                 new BlockDisplayBuilder()
                         .material(Material.WHITE_CONCRETE)
                         .transformation(
@@ -100,10 +98,9 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
                                         .scale(0.95, 0.1, 0.95)
                         )
                         .build(center)
-                )
         );
 
-        addEntity("hold", new DelightBlockDisplay(
+        addEntity("hold",
                 new BlockDisplayBuilder()
                         .material(Material.WHITE_CONCRETE)
                         .transformation(
@@ -111,14 +108,14 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
                                         .scale(0.2, 0.95, 0.2)
                         )
                         .build(new FacedLocation(center, face).inFront(0.35).add(0, 0.15, 0))
-        ));
+        );
 
         Quaternionf connect = new Quaternionf();
         if (face.toString().contains("WEST") || face.toString().contains("EAST")) {
             connect = connect.rotateZ((float) Math.toRadians(90));
         }
 
-        addEntity("connect", new DelightBlockDisplay(
+        addEntity("connect",
                 new BlockDisplayBuilder()
                         .material(Material.WHITE_CONCRETE)
                         .transformation(
@@ -127,9 +124,9 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
                                         .rotate(connect)
                         )
                         .build(new FacedLocation(center, face).inFront(0.175).add(0, 0.725, 0))
-        ));
+        );
 
-        addEntity("inject", new DelightBlockDisplay(
+        addEntity("inject",
                 new BlockDisplayBuilder()
                         .material(Material.GRAY_CONCRETE)
                         .transformation(
@@ -137,9 +134,9 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
                                         .scale(0.1, 0.05, 0.1)
                         )
                         .build(center.clone().add(0, 0.6, 0))
-        ));
+        );
 
-        addEntity("bottle", new SimpleItemDisplay(
+        addEntity("bottle",
                 new ItemDisplayBuilder()
                         .itemStack(ItemStack.of(Material.GLASS_BOTTLE))
                         .transformation(
@@ -148,6 +145,6 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
                                         .rotate(connect)
                         )
                         .build(center.clone().add(0, 0.425, 0))
-        ));
+        );
     }
 }
