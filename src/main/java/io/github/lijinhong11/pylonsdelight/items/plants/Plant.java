@@ -51,7 +51,7 @@ public abstract class Plant extends PylonBlock implements PylonTickingBlock, Pyl
     }
 
     @Override
-    public void tick(double deltaSeconds) {
+    public void tick() {
         if (currentStage != stages.values().toArray()[0]) {
             PlantStage stage = stages.get(ticks);
             if (stage != null) {

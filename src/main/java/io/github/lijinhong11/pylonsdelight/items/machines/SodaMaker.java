@@ -75,7 +75,7 @@ public class SodaMaker extends PylonBlock implements PylonInteractBlock, PylonTi
     }
 
     @Override
-    public void tick(double deltaSeconds) {
+    public void tick() {
         if (ticks > 0) {
 
             ticks++;

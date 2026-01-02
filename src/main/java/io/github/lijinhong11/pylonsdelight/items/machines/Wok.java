@@ -36,7 +36,6 @@ import org.joml.Quaternionf;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTickingBlock, PylonInteractBlock {
     public static final CommonRecipeType<WokRecipe> RECIPE_TYPE = new CommonRecipeType<>(DelightKeys.WOK);
@@ -170,7 +169,7 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
     }
 
     @Override
-    public void tick(double deltaSeconds) {
+    public void tick() {
         if (ticks > 0) {
             WokRecipe recipe = RECIPE_TYPE.findRecipe(items);
             if (recipe != null && recipe.isDone(ticks)) {
@@ -187,20 +186,6 @@ public class Wok extends PylonBlock implements PylonEntityHolderBlock, PylonTick
         pdc.set(DelightDataKeys.TICKS, PersistentDataType.INTEGER, ticks);
         pdc.set(DelightDataKeys.STIRS, PersistentDataType.INTEGER, stirs);
         pdc.set(DelightDataKeys.ITEMS, DataType.ITEM_STACK_ARRAY, items.toArray(ItemStack[]::new));
-    }
-
-    private void rollItemEntities() {
-        if (items.isEmpty()) {
-            return;
-        }
-
-        int i = new Random().nextInt(items.size());
-        ItemDisplay display = getHeldEntity(ItemDisplay.class, "item_" + i);
-        if (display == null) {
-            return;
-        }
-
-
     }
 
     private BlockDisplay createPan(Location loc) {

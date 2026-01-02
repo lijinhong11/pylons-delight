@@ -66,7 +66,7 @@ public class Frier extends PylonBlock implements PylonInteractBlock, PylonTickin
     }
 
     @Override
-    public void tick(double deltaSeconds) {
+    public void tick() {
 
     }
 
